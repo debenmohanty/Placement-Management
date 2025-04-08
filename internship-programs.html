@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Programs - Placement Cell</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Placement Cell</div>
+            <ul class="nav-links">
+                <li><a href="dashboard-student.html">Dashboard</a></li>
+                <li><a href="career-counseling.html">Career Counseling</a></li>
+                <li><a href="mentorship.html">Mentorship</a></li>
+                <li><a href="placement-offers.html">Placement Offers</a></li>
+                <li><a href="internship-programs.html">Internship Programs</a></li>
+                <li><a href="login.html" id="logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <h1 class="page-title">Internship Programs</h1>
+        
+        <div class="filters-bar">
+            <div class="search-filter">
+                <input type="text" id="searchInternships" placeholder="Search internships, companies...">
+            </div>
+            <div class="filter-group">
+                <select id="filterDuration">
+                    <option value="">All Durations</option>
+                    <option value="summer">Summer (2-3 months)</option>
+                    <option value="semester">Semester (4-6 months)</option>
+                    <option value="year">Year-long</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <select id="filterPaid">
+                    <option value="">All Types</option>
+                    <option value="paid">Paid Only</option>
+                    <option value="unpaid">Unpaid Accepted</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <select id="filterField">
+                    <option value="">All Fields</option>
+                    <option value="software">Software Development</option>
+                    <option value="data">Data Science</option>
+                    <option value="design">Design</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="finance">Finance</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="internship-grid">
+            <div class="internship-listings">
+                <div class="internship-card" data-duration="summer" data-paid="paid" data-field="software">
+                    <div class="company-logo">
+                        <img src="assets/images/microsoft.png" alt="Microsoft" onerror="this.src='https://via.placeholder.com/80?text=M'">
+                    </div>
+                    <div class="internship-content">
+                        <div class="internship-header">
+                            <h3>Software Engineering Intern</h3>
+                            <span class="company-name">Microsoft</span>
+                        </div>
+                        <div class="internship-details">
+                            <p><strong>Duration:</strong> 3 months (Summer 2024)</p>
+                            <p><strong>Location:</strong> Redmond, WA</p>
+                            <p><strong>Stipend:</strong> $8,000/month</p>
+                            <p><strong>Application Deadline:</strong> December 15, 2023</p>
+                            <p><strong>Skills Required:</strong> C++, C#, .NET, Cloud Services</p>
+                            <p class="internship-description">Join Microsoft's engineering team to work on cutting-edge software products. You'll contribute to real projects and gain valuable industry experience.</p>
+                        </div>
+                        <div class="internship-badges">
+                            <span class="badge badge-primary">Paid</span>
+                            <span class="badge badge-secondary">Housing Provided</span>
+                            <span class="badge badge-success">Letter of Recommendation</span>
+                        </div>
+                        <div class="internship-actions">
+                            <button class="btn-view-details">View Details</button>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="internship-card" data-duration="semester" data-paid="paid" data-field="data">
+                    <div class="company-logo">
+                        <img src="assets/images/amazon.png" alt="Amazon" onerror="this.src='https://via.placeholder.com/80?text=A'">
+                    </div>
+                    <div class="internship-content">
+                        <div class="internship-header">
+                            <h3>Data Science Intern</h3>
+                            <span class="company-name">Amazon</span>
+                        </div>
+                        <div class="internship-details">
+                            <p><strong>Duration:</strong> 6 months</p>
+                            <p><strong>Location:</strong> Seattle, WA (Remote possible)</p>
+                            <p><strong>Stipend:</strong> $7,500/month</p>
+                            <p><strong>Application Deadline:</strong> November 30, 2023</p>
+                            <p><strong>Skills Required:</strong> Python, Machine Learning, SQL, Data Visualization</p>
+                            <p class="internship-description">Work with Amazon's data science team to analyze customer behavior, optimize product recommendations, and improve business metrics.</p>
+                        </div>
+                        <div class="internship-badges">
+                            <span class="badge badge-primary">Paid</span>
+                            <span class="badge badge-info">Remote Option</span>
+                            <span class="badge badge-success">Potential Full-time Offer</span>
+                        </div>
+                        <div class="internship-actions">
+                            <button class="btn-view-details">View Details</button>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="internship-card" data-duration="summer" data-paid="paid" data-field="design">
+                    <div class="company-logo">
+                        <img src="assets/images/apple.png" alt="Apple" onerror="this.src='https://via.placeholder.com/80?text=A'">
+                    </div>
+                    <div class="internship-content">
+                        <div class="internship-header">
+                            <h3>UI/UX Design Intern</h3>
+                            <span class="company-name">Apple</span>
+                        </div>
+                        <div class="internship-details">
+                            <p><strong>Duration:</strong> 3 months (Summer 2024)</p>
+                            <p><strong>Location:</strong> Cupertino, CA</p>
+                            <p><strong>Stipend:</strong> $7,000/month</p>
+                            <p><strong>Application Deadline:</strong> January 15, 2024</p>
+                            <p><strong>Skills Required:</strong> Figma, Sketch, User Research, Interaction Design</p>
+                            <p class="internship-description">Join Apple's design team to create intuitive and beautiful user interfaces for Apple products. You'll work closely with product managers and engineers.</p>
+                        </div>
+                        <div class="internship-badges">
+                            <span class="badge badge-primary">Paid</span>
+                            <span class="badge badge-secondary">Housing Stipend</span>
+                            <span class="badge badge-success">Mentorship Program</span>
+                        </div>
+                        <div class="internship-actions">
+                            <button class="btn-view-details">View Details</button>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="internship-card" data-duration="semester" data-paid="paid" data-field="marketing">
+                    <div class="company-logo">
+                        <img src="assets/images/google.png" alt="Google" onerror="this.src='https://via.placeholder.com/80?text=G'">
+                    </div>
+                    <div class="internship-content">
+                        <div class="internship-header">
+                            <h3>Digital Marketing Intern</h3>
+                            <span class="company-name">Google</span>
+                        </div>
+                        <div class="internship-details">
+                            <p><strong>Duration:</strong> 6 months</p>
+                            <p><strong>Location:</strong> New York, NY</p>
+                            <p><strong>Stipend:</strong> $6,500/month</p>
+                            <p><strong>Application Deadline:</strong> December 1, 2023</p>
+                            <p><strong>Skills Required:</strong> SEO, Social Media Marketing, Analytics, Content Creation</p>
+                            <p class="internship-description">Support Google's marketing team in creating and implementing digital marketing strategies across various platforms and products.</p>
+                        </div>
+                        <div class="internship-badges">
+                            <span class="badge badge-primary">Paid</span>
+                            <span class="badge badge-secondary">Transportation Allowance</span>
+                            <span class="badge badge-info">Flexible Hours</span>
+                        </div>
+                        <div class="internship-actions">
+                            <button class="btn-view-details">View Details</button>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="internship-card" data-duration="year" data-paid="paid" data-field="finance">
+                    <div class="company-logo">
+                        <img src="assets/images/goldman.png" alt="Goldman Sachs" onerror="this.src='https://via.placeholder.com/80?text=GS'">
+                    </div>
+                    <div class="internship-content">
+                        <div class="internship-header">
+                            <h3>Investment Banking Analyst Intern</h3>
+                            <span class="company-name">Goldman Sachs</span>
+                        </div>
+                        <div class="internship-details">
+                            <p><strong>Duration:</strong> 12 months</p>
+                            <p><strong>Location:</strong> New York, NY</p>
+                            <p><strong>Stipend:</strong> $7,000/month</p>
+                            <p><strong>Application Deadline:</strong> November 15, 2023</p>
+                            <p><strong>Skills Required:</strong> Financial Modeling, Valuation, Excel, PowerPoint</p>
+                            <p class="internship-description">Gain experience in investment banking by working on real deals, conducting financial analyses, and supporting senior bankers in client presentations.</p>
+                        </div>
+                        <div class="internship-badges">
+                            <span class="badge badge-primary">Paid</span>
+                            <span class="badge badge-success">Potential Full-time Offer</span>
+                            <span class="badge badge-warning">Competitive</span>
+                        </div>
+                        <div class="internship-actions">
+                            <button class="btn-view-details">View Details</button>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="internship-card" data-duration="summer" data-paid="unpaid" data-field="software">
+                    <div class="company-logo">
+                        <img src="assets/images/nonprofit.png" alt="Tech for Good" onerror="this.src='https://via.placeholder.com/80?text=TG'">
+                    </div>
+                    <div class="internship-content">
+                        <div class="internship-header">
+                            <h3>Web Development Intern</h3>
+                            <span class="company-name">Tech for Good (Non-profit)</span>
+                        </div>
+                        <div class="internship-details">
+                            <p><strong>Duration:</strong> 2 months (Summer 2024)</p>
+                            <p><strong>Location:</strong> Remote</p>
+                            <p><strong>Stipend:</strong> Unpaid (Academic Credit Available)</p>
+                            <p><strong>Application Deadline:</strong> March 1, 2024</p>
+                            <p><strong>Skills Required:</strong> HTML, CSS, JavaScript, Responsive Design</p>
+                            <p class="internship-description">Help develop websites for non-profit organizations. Great opportunity to build your portfolio while making a positive social impact.</p>
+                        </div>
+                        <div class="internship-badges">
+                            <span class="badge badge-secondary">Unpaid</span>
+                            <span class="badge badge-info">Remote</span>
+                            <span class="badge badge-success">Academic Credit</span>
+                        </div>
+                        <div class="internship-actions">
+                            <button class="btn-view-details">View Details</button>
+                            <button class="btn-apply">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="internship-sidebar">
+                <div class="card">
+                    <h2>My Applications</h2>
+                    <div class="application-list">
+                        <div class="application-card">
+                            <h3>Machine Learning Intern</h3>
+                            <p><strong>Company:</strong> Tesla</p>
+                            <p><strong>Applied on:</strong> Oct 18, 2023</p>
+                            <p><strong>Status:</strong> <span class="status-pending">Under Review</span></p>
+                        </div>
+                    </div>
+                    <p class="empty-message hidden">You haven't applied to any internships yet.</p>
+                </div>
+                
+                <div class="card mt-20">
+                    <h2>Internship Resources</h2>
+                    <ul class="resource-list">
+                        <li><a href="#">Resume Templates for Internships</a></li>
+                        <li><a href="#">Tips for Remote Internship Success</a></li>
+                        <li><a href="#">How to Convert Internship to Full-time Offer</a></li>
+                        <li><a href="#">Internship Interview Preparation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="card mt-20">
+                    <h2>Internship Spotlight</h2>
+                    <div class="spotlight-card">
+                        <img src="assets/images/spotlight.jpg" alt="Spotlight Internship" onerror="this.src='https://via.placeholder.com/300x150'">
+                        <div class="spotlight-content">
+                            <h3>NASA Space Apps Challenge</h3>
+                            <p>Special opportunity for students interested in space technology and innovation.</p>
+                            <p><strong>Duration:</strong> 3 months</p>
+                            <p><strong>Location:</strong> Multiple locations</p>
+                            <a href="#" class="btn-learn-more">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Internship Details Modal -->
+    <div class="modal" id="internshipDetailsModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="internshipModalContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Application Modal -->
+    <div class="modal" id="applicationModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Apply for <span id="internshipTitle"></span></h2>
+            <form id="applicationForm">
+                <div class="form-group">
+                    <label for="resume">Upload Resume (PDF)</label>
+                    <input type="file" id="resume" accept=".pdf" required>
+                </div>
+                <div class="form-group">
+                    <label for="coverLetter">Cover Letter</label>
+                    <textarea id="coverLetter" rows="5" placeholder="Why are you interested in this internship?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="availability">Availability</label>
+                    <select id="availability" required>
+                        <option value="">Select Availability</option>
+                        <option value="immediate">Immediate</option>
+                        <option value="1month">Within 1 Month</option>
+                        <option value="summer">Summer 2024</option>
+                        <option value="fall">Fall 2024</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="portfolioLink">Portfolio/GitHub (Optional)</label>
+                    <input type="url" id="portfolioLink" placeholder="https://...">
+                </div>
+                <button type="submit" class="btn-primary">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Placement Cell Management System</p>
+            <p>Contact: placementcell@example.edu</p>
+        </div>
+    </footer>
+    
+    <style>
+        .internship-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .internship-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .internship-card {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .internship-content {
+            flex: 1;
+        }
+        
+        .internship-header {
+            margin-bottom: 15px;
+        }
+        
+        .internship-header h3 {
+            color: var(--secondary-color);
+            margin: 0 0 5px 0;
+        }
+        
+        .company-name {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .internship-details p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .internship-description {
+            margin-top: 10px;
+            color: #666;
+        }
+        
+        .internship-badges {
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .badge-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .badge-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .badge-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .badge-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+        
+        .badge-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .internship-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-view-details, .btn-apply {
+            padding: 8px 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+        
+        .btn-view-details {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .btn-apply {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .spotlight-card {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .spotlight-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .spotlight-content {
+            padding: 15px;
+        }
+        
+        .spotlight-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .btn-learn-more {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .filters-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .search-filter {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .search-filter input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+        }
+        
+        .filter-group select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            min-width: 150px;
+        }
+        
+        @media (max-width: 576px) {
+            .internship-card {
+                flex-direction: column;
+            }
+            
+            .company-logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+                align-self: center;
+            }
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search and filter functionality
+            const searchInput = document.getElementById('searchInternships');
+            const durationFilter = document.getElementById('filterDuration');
+            const paidFilter = document.getElementById('filterPaid');
+            const fieldFilter = document.getElementById('filterField');
+            const internshipCards = document.querySelectorAll('.internship-card');
+            
+            function filterInternships() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const duration = durationFilter.value;
+                const paid = paidFilter.value;
+                const field = fieldFilter.value;
+                
+                internshipCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const company = card.querySelector('.company-name').textContent.toLowerCase();
+                    const description = card.querySelector('.internship-description').textContent.toLowerCase();
+                    
+                    const searchMatch = title.includes(searchTerm) || 
+                                       company.includes(searchTerm) || 
+                                       description.includes(searchTerm);
+                    
+                    const durationMatch = !duration || card.dataset.duration === duration;
+                    const paidMatch = !paid || card.dataset.paid === paid;
+                    const fieldMatch = !field || card.dataset.field === field;
+                    
+                    if (searchMatch && durationMatch && paidMatch && fieldMatch) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            searchInput.addEventListener('input', filterInternships);
+            durationFilter.addEventListener('change', filterInternships);
+            paidFilter.addEventListener('change', filterInternships);
+            fieldFilter.addEventListener('change', filterInternships);
+            
+            // Modal functionality
+            const internshipDetailsModal = document.getElementById('internshipDetailsModal');
+            const applicationModal = document.getElementById('applicationModal');
+            const internshipModalContent = document.getElementById('internshipModalContent');
+            const internshipTitleElement = document.getElementById('internshipTitle');
+            const closeButtons = document.querySelectorAll('.close-modal');
+            
+            // View Details buttons
+            const viewDetailsButtons = document.querySelectorAll('.btn-view-details');
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const internshipCard = this.closest('.internship-card');
+                    const title = internshipCard.querySelector('h3').textContent;
+                    const company = internshipCard.querySelector('.company-name').textContent;
+                    const details = internshipCard.querySelector('.internship-details').innerHTML;
+                    const badges = internshipCard.querySelector('.internship-badges').innerHTML;
+                    
+                    // Display extended internship details in modal
+                    internshipModalContent.innerHTML = `
+                        <h2>${title}</h2>
+                        <h3>${company}</h3>
+                        <div class="internship-detailed-info">
+                            ${details}
+                            <div class="internship-badges">${badges}</div>
+                            
+                            <h4>Program Description</h4>
+                            <p>This internship program provides a unique opportunity to gain hands-on experience in a professional environment. You'll work with experienced mentors on real projects that impact the company and its customers.</p>
+                            
+                            <h4>Responsibilities</h4>
+                            <ul>
+                                <li>Collaborate with team members on assigned projects</li>
+                                <li>Participate in design and development processes</li>
+                                <li>Attend team meetings and contribute ideas</li>
+                                <li>Document work and prepare presentations</li>
+                                <li>Complete training modules relevant to your role</li>
+                            </ul>
+                            
+                            <h4>Requirements</h4>
+                            <ul>
+                                <li>Currently enrolled in a related degree program</li>
+                                <li>Strong academic record (minimum GPA 3.0)</li>
+                                <li>Basic understanding of relevant technologies</li>
+                                <li>Excellent communication and teamwork skills</li>
+                                <li>Ability to commit to the full duration of the internship</li>
+                            </ul>
+                            
+                            <h4>Application Process</h4>
+                            <ol>
+                                <li>Submit application with resume and cover letter</li>
+                                <li>Initial screening by HR</li>
+                                <li>Technical assessment or assignment</li>
+                                <li>Interview with team members</li>
+                                <li>Final selection and offer</li>
+                            </ol>
+                        </div>
+                        <button class="btn-apply-modal">Apply Now</button>
+                    `;
+                    
+                    internshipDetailsModal.style.display = 'block';
+                    
+                    // Add event listener to Apply button in the modal
+                    const applyModalButton = internshipModalContent.querySelector('.btn-apply-modal');
+                    applyModalButton.addEventListener('click', function() {
+                        internshipDetailsModal.style.display = 'none';
+                        internshipTitleElement.textContent = title;
+                        applicationModal.style.display = 'block';
+                    });
+                });
+            });
+            
+            // Apply Now buttons
+            const applyButtons = document.querySelectorAll('.btn-apply');
+            applyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const internshipCard = this.closest('.internship-card');
+                    const title = internshipCard.querySelector('h3').textContent;
+                    internshipTitleElement.textContent = title;
+                    applicationModal.style.display = 'block';
+                });
+            });
+            
+            // Close modals
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    internshipDetailsModal.style.display = 'none';
+                    applicationModal.style.display = 'none';
+                });
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target == internshipDetailsModal) {
+                    internshipDetailsModal.style.display = 'none';
+                }
+                if (event.target == applicationModal) {
+                    applicationModal.style.display = 'none';
+                }
+            });
+            
+            // Handle application submission
+            const applicationForm = document.getElementById('applicationForm');
+            if (applicationForm) {
+                applicationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const internshipTitle = document.getElementById('internshipTitle').textContent;
+                    alert(`Application for "${internshipTitle}" submitted successfully!`);
+                    applicationModal.style.display = 'none';
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
