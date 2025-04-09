@@ -1,3 +1,102 @@
+// API Configuration
+const API_URL = 'http://localhost:5001/api';
+
+// Dashboard Functions
+async function fetchDashboardData() {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const response = await fetch(`${API_URL}/dashboard`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            updateDashboardUI(data);
+        } else {
+            throw new Error('Failed to fetch dashboard data');
+        }
+    } catch (error) {
+        console.error('Dashboard error:', error);
+        alert('Failed to load dashboard data');
+    }
+}
+
+function updateDashboardUI(data) {
+    // Update user info and welcome message
+    const user = getCurrentUser();
+    if (user) {
+        // Update welcome message
+        const welcomeElement = document.getElementById('welcomeMessage');
+        if (welcomeElement) {
+            welcomeElement.innerHTML = `Welcome, <span class="user-name">${user.name}</span>!`;
+        }
+
+        // Update user info in profile section if it exists
+        const userNameElement = document.getElementById('userName');
+        if (userNameElement) {
+            userNameElement.textContent = user.name;
+        }
+
+        const userRoleElement = document.getElementById('userRole');
+        if (userRoleElement) {
+            userRoleElement.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+        }
+    }
+
+    // Update stats
+    if (data.stats) {
+        document.getElementById('totalJobs').textContent = data.stats.totalJobs || 0;
+        document.getElementById('totalApplications').textContent = data.stats.totalApplications || 0;
+        document.getElementById('activeCompanies').textContent = data.stats.activeCompanies || 0;
+    }
+
+    // Update recent jobs
+    if (data.recentJobs && data.recentJobs.length > 0) {
+        const jobsContainer = document.getElementById('recentJobs');
+        if (jobsContainer) {
+            jobsContainer.innerHTML = data.recentJobs.map(job => `
+                <div class="job-card">
+                    <h3>${job.title}</h3>
+                    <p>${job.company}</p>
+                    <p>${job.location}</p>
+                    <a href="job-detail.html?id=${job.id}" class="btn btn-primary">View Details</a>
+                </div>
+            `).join('');
+        }
+    }
+
+    // Update recent applications
+    if (data.recentApplications && data.recentApplications.length > 0) {
+        const applicationsContainer = document.getElementById('recentApplications');
+        if (applicationsContainer) {
+            applicationsContainer.innerHTML = data.recentApplications.map(app => `
+                <div class="application-card">
+                    <h3>${app.jobTitle}</h3>
+                    <p>Status: ${app.status}</p>
+                    <p>Applied on: ${new Date(app.appliedAt).toLocaleDateString()}</p>
+                    <a href="application-detail.html?id=${app.id}" class="btn btn-primary">View Details</a>
+                </div>
+            `).join('');
+        }
+    }
+}
+
+// Initialize dashboard
+document.addEventListener('DOMContentLoaded', function() {
+    if (isAuthenticated()) {
+        fetchDashboardData();
+    } else {
+        window.location.href = 'login.html';
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     // Logout functionality
     const logoutBtn = document.getElementById('logout');

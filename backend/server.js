@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const db = require('./config/database');
+const db = require('./config/db');
 
 // Load environment variables
 dotenv.config();
@@ -21,7 +21,7 @@ app.get('/test', (req, res) => {
 
 // Routes
 app.use('/api/auth', require('./routes/auth.routes'));
-app.use('/api/jobs', require('./routes/jobs.routes'));
+app.use('/api/jobs', require('./routes/job.routes'));
 app.use('/api/company', require('./routes/company.routes'));
 app.use('/api/applications', require('./routes/application.routes'));
 

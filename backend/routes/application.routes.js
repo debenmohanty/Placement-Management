@@ -9,6 +9,12 @@ router.post('/:jobId', auth, async (req, res) => {
         const { jobId } = req.params;
         const userId = req.user.id;
 
+        // Check if user is a student
+        const [user] = await db.query('SELECT role FROM users WHERE id = ?', [userId]);
+        if (user.length === 0 || user[0].role !== 'student') {
+            return res.status(403).json({ message: 'Only students can apply for jobs' });
+        }
+
         // Check if job exists
         const [job] = await db.query('SELECT * FROM jobs WHERE id = ?', [jobId]);
         if (job.length === 0) {
@@ -47,10 +53,21 @@ router.get('/job/:jobId', auth, async (req, res) => {
         const { jobId } = req.params;
         const userId = req.user.id;
 
+        // Check if user is a company
+        const [user] = await db.query('SELECT role FROM users WHERE id = ?', [userId]);
+        if (user.length === 0 || user[0].role !== 'company') {
+            return res.status(403).json({ message: 'Only companies can view job applications' });
+        }
+
         // Verify job belongs to company
-        const [job] = await db.query('SELECT * FROM jobs WHERE id = ? AND company_id = ?', [jobId, userId]);
+        const [job] = await db.query(`
+            SELECT j.* FROM jobs j
+            JOIN company_profiles c ON j.company_id = c.id
+            WHERE j.id = ? AND c.user_id = ?
+        `, [jobId, userId]);
+
         if (job.length === 0) {
-            return res.status(404).json({ message: 'Job not found' });
+            return res.status(404).json({ message: 'Job not found or you do not have permission' });
         }
 
         // Get applications
@@ -73,11 +90,17 @@ router.get('/student', auth, async (req, res) => {
     try {
         const userId = req.user.id;
 
+        // Check if user is a student
+        const [user] = await db.query('SELECT role FROM users WHERE id = ?', [userId]);
+        if (user.length === 0 || user[0].role !== 'student') {
+            return res.status(403).json({ message: 'Only students can view their applications' });
+        }
+
         const [applications] = await db.query(`
-            SELECT a.*, j.title as job_title, j.company_id, c.name as company_name
+            SELECT a.*, j.title as job_title, c.company_name
             FROM applications a
             JOIN jobs j ON a.job_id = j.id
-            JOIN users c ON j.company_id = c.id
+            JOIN company_profiles c ON j.company_id = c.id
             WHERE a.user_id = ?
         `, [userId]);
 
@@ -95,11 +118,18 @@ router.put('/:applicationId/status', auth, async (req, res) => {
         const { status } = req.body;
         const userId = req.user.id;
 
+        // Check if user is a company
+        const [user] = await db.query('SELECT role FROM users WHERE id = ?', [userId]);
+        if (user.length === 0 || user[0].role !== 'company') {
+            return res.status(403).json({ message: 'Only companies can update application status' });
+        }
+
         // Verify company owns the job
         const [application] = await db.query(`
-            SELECT a.*, j.company_id 
+            SELECT a.*, j.company_id, c.user_id as company_user_id
             FROM applications a
             JOIN jobs j ON a.job_id = j.id
+            JOIN company_profiles c ON j.company_id = c.id
             WHERE a.id = ?
         `, [applicationId]);
 
@@ -107,7 +137,7 @@ router.put('/:applicationId/status', auth, async (req, res) => {
             return res.status(404).json({ message: 'Application not found' });
         }
 
-        if (application[0].company_id !== userId) {
+        if (application[0].company_user_id !== userId) {
             return res.status(403).json({ message: 'Not authorized to update this application' });
         }
 

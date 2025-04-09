@@ -3,208 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Dashboard - Placement Cell</title>
+    <title>Company Dashboard - Campus Connect</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">Placement Cell</div>
-            <ul class="nav-links">
-                <li><a href="dashboard-company.html">Dashboard</a></li>
-                <li><a href="placement-offers.html">Placement Offers</a></li>
-                <li><a href="internship-programs.html">Internship Programs</a></li>
-                <li><a href="company-profile.html">Company Profile</a></li>
-                <li><a href="login.html" id="logout">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main class="container dashboard">
-        <h1>Company Dashboard</h1>
-        
-        <div class="dashboard-stats">
-            <div class="stat-card">
-                <h3>Active Job Postings</h3>
-                <p class="stat-number">4</p>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Campus Connect</h1>
             </div>
-            <div class="stat-card">
-                <h3>Active Internships</h3>
-                <p class="stat-number">2</p>
-            </div>
-            <div class="stat-card">
-                <h3>Applications Received</h3>
-                <p class="stat-number">28</p>
-            </div>
-            <div class="stat-card">
-                <h3>Selected Candidates</h3>
-                <p class="stat-number">5</p>
-            </div>
-        </div>
-        
-        <a href="#" class="post-job-btn" id="postJobToggle">+ Post New Job/Internship</a>
-        
-        <div class="post-job-section card hidden" id="postJobSection">
-            <h2>Post a New Job/Internship</h2>
-            <form id="postJobForm">
-                <div class="form-group">
-                    <label for="jobTitle">Job Title</label>
-                    <input type="text" id="jobTitle" required>
+            <nav>
+                <ul>
+                    <li class="active"><a href="dashboard-company.html">Dashboard</a></li>
+                    <li><a href="post-job.html">Post Job</a></li>
+                    <li><a href="applications.html">Applications</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h2 id="welcomeMessage">Welcome!</h2>
+                <div class="user-info">
+                    <span id="userRole"></span>
                 </div>
-                <div class="form-group">
-                    <label for="jobType">Job Type</label>
-                    <select id="jobType" required>
-                        <option value="">Select Type</option>
-                        <option value="fulltime">Full-time Job</option>
-                        <option value="internship">Internship</option>
-                    </select>
+            </header>
+
+            <!-- Dashboard Stats -->
+            <section class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Active Jobs</h3>
+                    <p id="activeJobs">0</p>
                 </div>
-                <div class="form-group">
-                    <label for="jobLocation">Location</label>
-                    <input type="text" id="jobLocation" required>
+                <div class="stat-card">
+                    <h3>Total Applications</h3>
+                    <p id="totalApplications">0</p>
                 </div>
-                <div class="form-group">
-                    <label for="jobSalary">Salary/Stipend</label>
-                    <input type="text" id="jobSalary" required>
+                <div class="stat-card">
+                    <h3>Shortlisted</h3>
+                    <p id="shortlisted">0</p>
                 </div>
-                <div class="form-group">
-                    <label for="jobSkills">Required Skills</label>
-                    <input type="text" id="jobSkills" placeholder="Separate skills with commas" required>
+            </section>
+
+            <!-- Recent Job Postings -->
+            <section class="dashboard-section">
+                <h3>Your Job Postings</h3>
+                <div id="jobPostings" class="jobs-grid">
+                    <!-- Jobs will be loaded here -->
                 </div>
-                <div class="form-group">
-                    <label for="jobDescription">Job Description</label>
-                    <textarea id="jobDescription" rows="5" required></textarea>
+            </section>
+
+            <!-- Recent Applications -->
+            <section class="dashboard-section">
+                <h3>Recent Applications</h3>
+                <div id="recentApplications" class="applications-grid">
+                    <!-- Applications will be loaded here -->
                 </div>
-                <div class="form-group">
-                    <label for="jobDeadline">Application Deadline</label>
-                    <input type="date" id="jobDeadline" required>
-                </div>
-                <button type="submit" class="btn-primary">Post Job</button>
-            </form>
-        </div>
-        
-        <div class="dashboard-content">
-            <div class="dashboard-section">
-                <h2>Your Job Postings</h2>
-                <div class="job-listings">
-                    <div class="job-card">
-                        <div class="job-header">
-                            <h3>Senior Software Engineer</h3>
-                            <span class="badge">Full-time</span>
-                        </div>
-                        <div class="job-details">
-                            <p><strong>Location:</strong> San Francisco</p>
-                            <p><strong>Salary:</strong> $120,000 - $150,000/year</p>
-                            <p><strong>Posted:</strong> October 5, 2023</p>
-                            <p><strong>Applications:</strong> 12</p>
-                        </div>
-                        <div class="job-actions">
-                            <button class="btn-view">View Applications</button>
-                            <button class="btn-edit">Edit</button>
-                            <button class="btn-delete">Delete</button>
-                        </div>
-                    </div>
-                    
-                    <div class="job-card">
-                        <div class="job-header">
-                            <h3>Data Science Intern</h3>
-                            <span class="badge">Internship</span>
-                        </div>
-                        <div class="job-details">
-                            <p><strong>Location:</strong> Remote</p>
-                            <p><strong>Stipend:</strong> $2,000/month</p>
-                            <p><strong>Posted:</strong> October 10, 2023</p>
-                            <p><strong>Applications:</strong> 8</p>
-                        </div>
-                        <div class="job-actions">
-                            <button class="btn-view">View Applications</button>
-                            <button class="btn-edit">Edit</button>
-                            <button class="btn-delete">Delete</button>
-                        </div>
-                    </div>
-                    
-                    <div class="job-card">
-                        <div class="job-header">
-                            <h3>Frontend Developer</h3>
-                            <span class="badge">Full-time</span>
-                        </div>
-                        <div class="job-details">
-                            <p><strong>Location:</strong> New York</p>
-                            <p><strong>Salary:</strong> $90,000 - $110,000/year</p>
-                            <p><strong>Posted:</strong> October 15, 2023</p>
-                            <p><strong>Applications:</strong> 6</p>
-                        </div>
-                        <div class="job-actions">
-                            <button class="btn-view">View Applications</button>
-                            <button class="btn-edit">Edit</button>
-                            <button class="btn-delete">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="dashboard-section">
-                <h2>Recent Applications</h2>
-                <div class="application-list">
-                    <div class="application-card">
-                        <div class="applicant-info">
-                            <h3>John Doe</h3>
-                            <p>Applied for: <strong>Senior Software Engineer</strong></p>
-                            <p>Applied on: <strong>October 18, 2023</strong></p>
-                        </div>
-                        <div class="application-actions">
-                            <button class="btn-view">View Profile</button>
-                            <button class="btn-shortlist">Shortlist</button>
-                            <button class="btn-reject">Reject</button>
-                        </div>
-                    </div>
-                    
-                    <div class="application-card">
-                        <div class="applicant-info">
-                            <h3>Emily Johnson</h3>
-                            <p>Applied for: <strong>Data Science Intern</strong></p>
-                            <p>Applied on: <strong>October 17, 2023</strong></p>
-                        </div>
-                        <div class="application-actions">
-                            <button class="btn-view">View Profile</button>
-                            <button class="btn-shortlist">Shortlist</button>
-                            <button class="btn-reject">Reject</button>
-                        </div>
-                    </div>
-                    
-                    <div class="application-card">
-                        <div class="applicant-info">
-                            <h3>Michael Brown</h3>
-                            <p>Applied for: <strong>Frontend Developer</strong></p>
-                            <p>Applied on: <strong>October 16, 2023</strong></p>
-                        </div>
-                        <div class="application-actions">
-                            <button class="btn-view">View Profile</button>
-                            <button class="btn-shortlist">Shortlist</button>
-                            <button class="btn-reject">Reject</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Placement Cell Management System</p>
-            <p>Contact: placementcell@example.edu</p>
-        </div>
-    </footer>
-    
+            </section>
+        </main>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
     <script src="assets/js/dashboard.js"></script>
-    <script>
-        // Toggle Post Job form
-        document.getElementById('postJobToggle').addEventListener('click', function(e) {
-            e.preventDefault();
-            const postJobSection = document.getElementById('postJobSection');
-            postJobSection.classList.toggle('hidden');
-        });
-    </script>
 </body>
 </html> 
