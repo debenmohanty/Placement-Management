@@ -1,10 +1,10 @@
 // API Configuration
-const API_URL = 'http://localhost:5001/api';
+const API_URL = 'http://localhost:5001';
 
 // Auth Functions
 async function login(email, password, role) {
     try {
-        const response = await fetch(`${API_URL}/auth/login`, {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ async function login(email, password, role) {
 
 async function register(userData) {
     try {
-        const response = await fetch(`${API_URL}/auth/register`, {
+        const response = await fetch(`${API_URL}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

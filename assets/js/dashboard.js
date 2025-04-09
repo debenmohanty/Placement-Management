@@ -1,5 +1,5 @@
 // API Configuration
-const API_URL = 'http://localhost:5001/api';
+const API_URL = 'http://localhost:5001';
 
 // Dashboard Functions
 async function fetchDashboardData() {
@@ -107,6 +107,88 @@ document.addEventListener('DOMContentLoaded', function() {
             // In a real application, you would destroy the session here
             // For now, just redirect to login page
             window.location.href = 'login.html';
+        });
+    }
+    
+    // Delete Account functionality
+    const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+    if (deleteAccountBtn) {
+        deleteAccountBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Show the modal
+            const modal = document.getElementById('deleteAccountModal');
+            if (modal) {
+                modal.style.display = 'block';
+                
+                // Close the modal when clicking on X
+                const closeBtn = modal.querySelector('.close');
+                if (closeBtn) {
+                    closeBtn.onclick = function() {
+                        modal.style.display = 'none';
+                    };
+                }
+                
+                // Close the modal when clicking on Cancel
+                const cancelBtn = document.getElementById('cancelDelete');
+                if (cancelBtn) {
+                    cancelBtn.onclick = function() {
+                        modal.style.display = 'none';
+                    };
+                }
+                
+                // Handle form submission
+                const form = document.getElementById('deleteAccountForm');
+                if (form) {
+                    form.onsubmit = function(event) {
+                        event.preventDefault();
+                        const password = document.getElementById('password').value;
+                        
+                        if (!password) {
+                            alert('Please enter your password to confirm');
+                            return;
+                        }
+                        
+                        const confirmDelete = confirm('Are you absolutely sure you want to delete your account? This action cannot be undone.');
+                        
+                        if (confirmDelete) {
+                            // Call the API to delete the account
+                            fetch('http://localhost:5001/api/auth/delete-account', {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                                },
+                                body: JSON.stringify({ password: password })
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to delete account');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                // Clear localStorage
+                                localStorage.removeItem('token');
+                                localStorage.removeItem('user');
+                                
+                                alert('Your account has been deleted successfully!');
+                                window.location.href = 'login.html';
+                            })
+                            .catch(error => {
+                                alert('Error deleting account: ' + error.message);
+                            });
+                        }
+                    };
+                }
+                
+                // Close the modal when clicking outside of it
+                window.onclick = function(event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                };
+            }
         });
     }
     

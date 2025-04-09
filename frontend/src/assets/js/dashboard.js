@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         userRoleSpan.textContent = userRole.charAt(0).toUpperCase() + userRole.slice(1);
     }
 
+    // Initialize delete account functionality first
+    initDeleteAccountFunctionality();
+
     try {
         // Load dashboard data based on user role
         switch (userRole) {
@@ -213,4 +216,197 @@ document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
     localStorage.removeItem('userRole');
     localStorage.removeItem('userName');
     window.location.href = 'login.html';
-}); 
+});
+
+// Delete Account functionality
+function initDeleteAccountFunctionality() {
+    // Allow a small delay for DOM to fully load
+    setTimeout(() => {
+        const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+        
+        if (!deleteAccountBtn) {
+            // Add the delete account button to the sidebar
+            const sidebarNav = document.querySelector('.sidebar nav ul');
+            
+            if (sidebarNav) {
+                const logoutItem = document.querySelector('#logoutBtn')?.parentElement;
+                if (logoutItem) {
+                    const deleteAccountItem = document.createElement('li');
+                    deleteAccountItem.innerHTML = `<a href="#" id="deleteAccountBtn" class="danger-link">Delete Account</a>`;
+                    sidebarNav.insertBefore(deleteAccountItem, logoutItem);
+                    
+                    // Need to get the new button reference
+                    const newDeleteAccountBtn = document.getElementById('deleteAccountBtn');
+                    if (newDeleteAccountBtn) {
+                        newDeleteAccountBtn.addEventListener('click', showDeleteAccountModal);
+                    }
+                } else {
+                    // If we couldn't find the logout button, append to the end of the list
+                    const deleteAccountItem = document.createElement('li');
+                    deleteAccountItem.innerHTML = `<a href="#" id="deleteAccountBtn" class="danger-link">Delete Account</a>`;
+                    sidebarNav.appendChild(deleteAccountItem);
+                    
+                    // Add event listener
+                    document.getElementById('deleteAccountBtn')?.addEventListener('click', showDeleteAccountModal);
+                }
+            }
+        } else {
+            deleteAccountBtn.addEventListener('click', showDeleteAccountModal);
+        }
+    }, 100); // Small delay to ensure DOM is ready
+}
+
+function showDeleteAccountModal() {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('deleteAccountModal');
+    
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'deleteAccountModal';
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Delete Account</h2>
+                <p>Are you sure you want to delete your account? This action cannot be undone and will permanently delete all your data.</p>
+                <form id="deleteAccountForm">
+                    <div class="form-group">
+                        <label for="password">Enter your password to confirm:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger">Delete My Account</button>
+                        <button type="button" class="btn btn-secondary" id="cancelDelete">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Add CSS styles for the modal if not already in stylesheet
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            .modal-content {
+                background-color: #fff;
+                margin: 15% auto;
+                padding: 20px;
+                width: 80%;
+                max-width: 500px;
+                border-radius: 5px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .close:hover, .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            .danger-link {
+                color: #dc3545 !important;
+            }
+            .btn-danger {
+                background-color: #dc3545;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .btn-secondary {
+                background-color: #6c757d;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-left: 10px;
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    }
+    
+    // Display the modal
+    modal.style.display = 'block';
+    
+    // Close button functionality
+    const closeBtn = modal.querySelector('.close');
+    closeBtn.onclick = () => modal.style.display = 'none';
+    
+    // Cancel button functionality
+    const cancelBtn = modal.querySelector('#cancelDelete');
+    cancelBtn.onclick = () => modal.style.display = 'none';
+    
+    // Submit form functionality
+    const form = modal.querySelector('#deleteAccountForm');
+    form.onsubmit = handleDeleteAccount;
+    
+    // Close modal when clicking outside
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
+}
+
+async function handleDeleteAccount(e) {
+    e.preventDefault();
+    
+    try {
+        const password = document.getElementById('password').value;
+        const token = localStorage.getItem('token');
+        
+        if (!password) {
+            showError('Please enter your password');
+            return;
+        }
+        
+        const confirmDelete = confirm('Are you absolutely sure you want to delete your account? This action cannot be undone.');
+        
+        if (!confirmDelete) {
+            return;
+        }
+        
+        const response = await fetch('/api/auth/delete-account', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ password })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.message || 'Error deleting account');
+        }
+        
+        alert('Your account has been successfully deleted. You will now be redirected to the homepage.');
+        
+        // Clear localStorage and redirect
+        localStorage.removeItem('token');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('userName');
+        window.location.href = 'index.html'; // Redirect to homepage
+        
+    } catch (error) {
+        console.error('Delete account error:', error);
+        showError(error.message || 'Failed to delete account. Please try again.');
+    }
+} 

@@ -3,88 +3,1034 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placement Cell - Login</title>
+    <title>Campus Connect - Login</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --form-bg: rgba(255, 255, 255, 0.95);
+            --form-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            --heading-color: #2c3e50;
+            --text-color: #333;
+            --label-color: #555;
+            --input-bg: #fff;
+            --input-border: #ddd;
+            --input-focus: #3498db;
+            --primary-color: #3498db;
+            --primary-hover: #2980b9;
+            --success-color: #2ecc71;
+        }
+
+        .dark-mode {
+            --form-bg: rgba(35, 45, 55, 0.95);
+            --form-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            --heading-color: #e0e0e0;
+            --text-color: #f5f5f5;
+            --label-color: #ccc;
+            --input-bg: #2c3e50;
+            --input-border: #456;
+            --input-focus: #5dade2;
+            --primary-color: #5dade2;
+            --primary-hover: #3498db;
+            --success-color: #27ae60;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #22c1c3);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Background image with parallax effect */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/images/campus-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            transform: translateZ(-1px) scale(2);
+            filter: blur(5px);
+        }
+        
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 42, 108, 0.8), rgba(178, 31, 31, 0.7), rgba(34, 193, 195, 0.6));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -1;
+        }
+        
+        /* Animated particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(-35px) translateX(-15px);
+            }
+            75% {
+                transform: translateY(-15px) translateX(25px);
+            }
+        }
+        
+        /* New border animation styles */
+        .login-wrapper:before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: #0a1128 !important; /* Solid dark blue color */
+            background-image: none !important;
+            z-index: -1;
+            border-radius: 17px;
+            animation: pulseGlow 3s infinite alternate !important;
+            opacity: 1 !important;
+            box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7);
+        }
+        
+        /* New pulsing glow animation */
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 25px 5px rgba(10, 17, 40, 0.9);
+            }
+            100% {
+                box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7);
+            }
+        }
+        
+        .login-wrapper {
+            z-index: 1;
+            background-color: var(--form-bg);
+            box-shadow: var(--form-shadow);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            transition: all 0.5s;
+            overflow: hidden;
+        }
+        
+        .login-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), 
+                        0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+            perspective: 1000px;
+        }
+        
+        .login-wrapper h1 {
+            text-align: center;
+            color: var(--heading-color);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            position: relative;
+        }
+        
+        .login-wrapper h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), transparent);
+        }
+        
+        .login-form, .register-form {
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .hidden {
+            position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(100px);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--label-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .form-group input::placeholder {
+            color: #aaa;
+        }
+        
+        /* Form field animation */
+        .form-group input, .form-group select, .form-group textarea {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-group::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-color), var(--success-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .form-group input:focus ~ ::after,
+        .form-group select:focus ~ ::after,
+        .form-group textarea:focus ~ ::after {
+            transform: scaleX(1);
+        }
+        
+        /* Animated labels */
+        .animated-label .form-group {
+            position: relative;
+        }
+        
+        .animated-label .form-group label {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            color: #aaa;
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .animated-label .form-group input:focus ~ label,
+        .animated-label .form-group input:not(:placeholder-shown) ~ label,
+        .animated-label .form-group textarea:focus ~ label {
+            top: -10px;
+            left: 10px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            background-color: var(--form-bg);
+            padding: 0 5px;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .toggle-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .toggle-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-link:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+        
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 26px;
+            border-radius: 13px;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 3px;
+        }
+        
+        .dark-mode-toggle.active {
+            background-color: #3498db;
+        }
+        
+        .toggle-thumb {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle.active .toggle-thumb {
+            transform: translateX(24px);
+        }
+        
+        .mode-icon {
+            position: absolute;
+            top: 5px;
+            transition: opacity 0.3s ease;
+            color: #555;
+            font-size: 15px;
+        }
+        
+        .mode-icon.sun {
+            left: 6px;
+            opacity: 1;
+        }
+        
+        .mode-icon.moon {
+            right: 6px;
+            opacity: 0;
+        }
+        
+        .dark-mode-toggle.active .mode-icon.sun {
+            opacity: 0;
+        }
+        
+        .dark-mode-toggle.active .mode-icon.moon {
+            opacity: 1;
+            color: white;
+        }
+        
+        /* Loading animation for form submission */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s infinite linear;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .btn-primary.loading .loading-spinner {
+            display: inline-block;
+        }
+        
+        /* Accessibility focus styles */
+        *:focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Animation for form switching */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-form, .register-form {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Error message styling */
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: #e74c3c;
+        }
+        
+        .form-group.error .error-message {
+            display: block;
+        }
+        
+        /* Home link */
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .home-link i {
+            margin-right: 8px;
+        }
+        
+        .home-link:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .login-wrapper {
+                width: 90%;
+                padding: 20px;
+            }
+            
+            .home-link, .dark-mode-toggle {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                margin: 10px;
+            }
+            
+            .top-actions {
+                position: absolute;
+                top: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 20px;
+                box-sizing: border-box;
+            }
+        }
+        
+        /* Helper text styling */
+        .form-text {
+            font-size: 0.8rem;
+            color: var(--label-color);
+            margin-top: 5px;
+            display: block;
+        }
+        
+        /* Dark mode adjustments for helper text */
+        .dark-mode .form-text {
+            color: #a0a0a0;
+        }
+        
+        /* Checkbox group styling */
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .checkbox-item label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body>
+<body class="auth-page">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    
+    <!-- Top navigation actions -->
+    <div class="top-actions">
+        <!-- Home link -->
+        <a href="index.html" class="home-link">
+            <i class="fas fa-home"></i> Home
+        </a>
+        
+        <!-- Dark mode toggle -->
+        <div class="dark-mode-toggle" id="darkModeToggle" tabindex="0" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+            <i class="fas fa-sun mode-icon sun"></i>
+            <i class="fas fa-moon mode-icon moon"></i>
+            <div class="toggle-thumb"></div>
+        </div>
+    </div>
+    
+    <!-- Background elements -->
+    <div class="background-image"></div>
+    <div class="background-overlay"></div>
+    
+    <!-- Animated particles -->
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
-        <div class="login-wrapper">
-            <h1>Welcome to Campus Connect</h1>
+        <div class="login-wrapper" id="main-content">
             <div class="login-form">
-                <h2>Sign in</h2>
-                <form id="loginForm">
+                <h1 id="loginFormTitle">Login to Campus Connect</h1>
+                <form id="loginForm" aria-labelledby="loginFormTitle">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" required>
+                        <input type="email" id="email" name="email" required 
+                               placeholder="Enter your email" 
+                               aria-describedby="emailError">
+                        <div id="emailError" class="error-message">Please enter a valid email address</div>
                     </div>
+                    
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" required>
+                        <input type="password" id="password" name="password" required 
+                               placeholder="Enter your password" 
+                               aria-describedby="passwordError">
+                        <div id="passwordError" class="error-message">Password is required</div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="role">Login As</label>
-                        <select id="role" required>
-                            <option value="">Select Role</option>
+                        <label for="role">Role</label>
+                        <select id="role" name="role" required 
+                                aria-describedby="roleError">
+                            <option value="">Select your role</option>
                             <option value="student">Student</option>
-                            <option value="faculty">Faculty</option>
                             <option value="company">Company</option>
+                            <option value="faculty">Faculty</option>
                         </select>
+                        <div id="roleError" class="error-message">Please select your role</div>
                     </div>
-                    <button type="submit" class="btn-primary">Login</button>
+                    
+                    <button type="submit" class="btn-primary" id="loginBtn">
+                        <span class="loading-spinner"></span>
+                        <span class="btn-text">Login</span>
+                    </button>
                 </form>
-                <p class="register-link">Don't have an account? <a href="#" id="registerToggle">Register</a></p>
+                
+                <div class="social-login">
+                    <p>Or login with</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon facebook" aria-label="Login with Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon google" aria-label="Login with Google">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="#" class="social-icon linkedin" aria-label="Login with LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="toggle-container">
+                    <p>Don't have an account? <a href="#" id="registerToggle" class="toggle-link">Register Now</a></p>
+                </div>
             </div>
             
             <div class="register-form hidden">
-                <h2>Register</h2>
-                <form id="registerForm">
+                <h1 id="registerFormTitle">Create an Account</h1>
+                <form id="registerForm" aria-labelledby="registerFormTitle">
                     <div class="form-group">
                         <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" required>
+                        <input type="text" id="fullName" name="fullName" required 
+                               placeholder="Enter your full name" 
+                               aria-describedby="fullNameError">
+                        <div id="fullNameError" class="error-message">Full name is required</div>
                     </div>
+                    
+                    <div class="form-group" id="genderField">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required 
+                                aria-describedby="genderError">
+                            <option value="">Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                        <div id="genderError" class="error-message">Please select your gender</div>
+                    </div>
+                    
+                    <div class="form-group" id="dobField">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" required 
+                               aria-describedby="dobError">
+                        <div id="dobError" class="error-message">Date of birth is required</div>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="regEmail">Email</label>
-                        <input type="email" id="regEmail" required>
+                        <input type="email" id="regEmail" name="regEmail" required 
+                               placeholder="Enter your email" 
+                               aria-describedby="regEmailError">
+                        <div id="regEmailError" class="error-message">Please enter a valid email address</div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="regPassword">Password</label>
-                        <input type="password" id="regPassword" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="regRole">Register As</label>
-                        <select id="regRole" required>
-                            <option value="">Select Role</option>
+                        <label for="regRole">Role</label>
+                        <select id="regRole" name="regRole" required 
+                                aria-describedby="regRoleError">
+                            <option value="">Select your role</option>
                             <option value="student">Student</option>
-                            <option value="faculty">Faculty</option>
                             <option value="company">Company</option>
+                            <option value="faculty">Faculty</option>
                         </select>
+                        <div id="regRoleError" class="error-message">Please select your role</div>
                     </div>
+                    
+                    <!-- Student fields (hidden by default) -->
                     <div id="studentFields" class="hidden">
                         <div class="form-group">
-                            <label for="rollNumber">Roll Number</label>
-                            <input type="text" id="rollNumber">
+                            <label for="collegeName">College Name</label>
+                            <input type="text" id="collegeName" name="collegeName" 
+                                   placeholder="Enter your college name" 
+                                   aria-describedby="collegeNameError">
+                            <div id="collegeNameError" class="error-message">College name is required</div>
                         </div>
+                        
                         <div class="form-group">
                             <label for="branch">Branch</label>
-                            <input type="text" id="branch">
+                            <input type="text" id="branch" name="branch" 
+                                   placeholder="Enter your branch" 
+                                   aria-describedby="branchError">
+                            <div id="branchError" class="error-message">Branch is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="rollNumber">Roll Number</label>
+                            <input type="text" id="rollNumber" name="rollNumber" 
+                                   placeholder="Enter your roll number" 
+                                   aria-describedby="rollNumberError">
+                            <div id="rollNumberError" class="error-message">Roll number is required</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="semester">Current Semester</label>
+                            <select id="semester" name="semester" aria-describedby="semesterError">
+                                <option value="">Select your semester</option>
+                                <option value="1">1st Semester</option>
+                                <option value="2">2nd Semester</option>
+                                <option value="3">3rd Semester</option>
+                                <option value="4">4th Semester</option>
+                                <option value="5">5th Semester</option>
+                                <option value="6">6th Semester</option>
+                                <option value="7">7th Semester</option>
+                                <option value="8">8th Semester</option>
+                            </select>
+                            <div id="semesterError" class="error-message">Semester is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cgpa">CGPA</label>
+                            <input type="number" id="cgpa" name="cgpa" min="0" max="10" step="0.01"
+                                   placeholder="Enter your CGPA (e.g. 8.75)" 
+                                   aria-describedby="cgpaError">
+                            <div id="cgpaError" class="error-message">Please enter a valid CGPA</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="skills">Skills (comma separated)</label>
+                            <input type="text" id="skills" name="skills" 
+                                   placeholder="e.g. Java, Python, C++" 
+                                   aria-describedby="skillsInfo">
+                            <small id="skillsInfo" class="form-text text-muted">Enter skills that are relevant to your field</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="graduation">Expected Graduation Year</label>
+                            <select id="graduation" name="graduation" aria-describedby="graduationError">
+                                <option value="">Select year</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                            </select>
+                            <div id="graduationError" class="error-message">Graduation year is required</div>
                         </div>
                     </div>
+                    
+                    <!-- Company fields (hidden by default) -->
                     <div id="companyFields" class="hidden">
                         <div class="form-group">
                             <label for="companyName">Company Name</label>
-                            <input type="text" id="companyName">
+                            <input type="text" id="companyName" name="companyName" 
+                                   placeholder="Enter company name" 
+                                   aria-describedby="companyNameError">
+                            <div id="companyNameError" class="error-message">Company name is required</div>
                         </div>
+                        
                         <div class="form-group">
                             <label for="industry">Industry</label>
-                            <input type="text" id="industry">
+                            <select id="industry" name="industry" 
+                                   aria-describedby="industryError">
+                                <option value="">Select industry</option>
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Banking/Financial Services">Banking/Financial Services</option>
+                                <option value="Consulting">Consulting</option>
+                                <option value="E-commerce">E-commerce</option>
+                                <option value="Manufacturing">Manufacturing</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Telecommunications">Telecommunications</option>
+                                <option value="Automotive">Automotive</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Media/Entertainment">Media/Entertainment</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div id="industryError" class="error-message">Industry is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="companySize">Company Size</label>
+                            <select id="companySize" name="companySize" 
+                                   aria-describedby="companySizeError">
+                                <option value="">Select company size</option>
+                                <option value="1-50">1-50 employees</option>
+                                <option value="51-200">51-200 employees</option>
+                                <option value="201-500">201-500 employees</option>
+                                <option value="501-1000">501-1000 employees</option>
+                                <option value="1001-5000">1001-5000 employees</option>
+                                <option value="5001+">5001+ employees</option>
+                            </select>
+                            <div id="companySizeError" class="error-message">Company size is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="website">Company Website</label>
+                            <input type="url" id="website" name="website" 
+                                   placeholder="https://www.example.com" 
+                                   aria-describedby="websiteError">
+                            <div id="websiteError" class="error-message">Please enter a valid URL</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="companyLocation">Headquarters Location</label>
+                            <input type="text" id="companyLocation" name="companyLocation" 
+                                   placeholder="City, Country" 
+                                   aria-describedby="locationError">
+                            <div id="locationError" class="error-message">Location is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPerson">Contact Person</label>
+                            <input type="text" id="contactPerson" name="contactPerson" 
+                                   placeholder="Name of primary contact" 
+                                   aria-describedby="contactPersonError">
+                            <div id="contactPersonError" class="error-message">Contact person is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPhone">Contact Phone</label>
+                            <input type="tel" id="contactPhone" name="contactPhone" 
+                                   placeholder="Phone number with country code" 
+                                   aria-describedby="contactPhoneError">
+                            <div id="contactPhoneError" class="error-message">Please enter a valid phone number</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="companyDescription">Company Description</label>
+                            <textarea id="companyDescription" name="companyDescription" 
+                                     rows="4"
+                                     placeholder="Brief description of your company (max 500 characters)" 
+                                     maxlength="500"
+                                     aria-describedby="descriptionError"></textarea>
+                            <div id="descriptionError" class="error-message">Company description is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="establishmentYear">Year of Establishment</label>
+                            <input type="number" id="establishmentYear" name="establishmentYear" 
+                                   min="1900" max="2023" step="1"
+                                   placeholder="e.g. 2005" 
+                                   aria-describedby="establishmentYearError">
+                            <div id="establishmentYearError" class="error-message">Please enter a valid year</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Recruitment Preferences</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="fullTime" name="recruitmentPreferences" value="fullTime">
+                                    <label for="fullTime">Full-time Employees</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="internship" name="recruitmentPreferences" value="internship">
+                                    <label for="internship">Internships</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="contract" name="recruitmentPreferences" value="contract">
+                                    <label for="contract">Contract/Project-based</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn-primary">Register</button>
+                    
+                    <!-- Faculty fields (hidden by default) -->
+                    <div id="facultyFields" class="hidden">
+                        <div class="form-group">
+                            <label for="collegeName-faculty">College Name</label>
+                            <input type="text" id="collegeName-faculty" name="collegeName-faculty" 
+                                   placeholder="Enter your college name" 
+                                   aria-describedby="collegeNameFacultyError">
+                            <div id="collegeNameFacultyError" class="error-message">College name is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="designation">Designation</label>
+                            <input type="text" id="designation" name="designation" 
+                                   placeholder="Enter your designation" 
+                                   aria-describedby="designationError">
+                            <div id="designationError" class="error-message">Designation is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="branch-faculty">Branch/Department</label>
+                            <input type="text" id="branch-faculty" name="branch-faculty" 
+                                   placeholder="Enter your department" 
+                                   aria-describedby="branchFacultyError">
+                            <div id="branchFacultyError" class="error-message">Department is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empId">Employee ID</label>
+                            <input type="text" id="empId" name="empId" 
+                                   placeholder="Enter your employee ID" 
+                                   aria-describedby="empIdError">
+                            <div id="empIdError" class="error-message">Employee ID is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="qualification">Qualification</label>
+                            <input type="text" id="qualification" name="qualification" 
+                                   placeholder="Enter your highest qualification" 
+                                   aria-describedby="qualificationError">
+                            <div id="qualificationError" class="error-message">Qualification is required</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">Experience (in years)</label>
+                            <input type="number" id="experience" name="experience" min="0" max="50" step="0.5"
+                                   placeholder="Enter your experience in years" 
+                                   aria-describedby="experienceError">
+                            <div id="experienceError" class="error-message">Please enter valid experience</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <input type="password" id="regPassword" name="regPassword" required 
+                               placeholder="Create a password" 
+                               aria-describedby="regPasswordError">
+                        <div id="regPasswordError" class="error-message">Password must be at least 6 characters</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required 
+                               placeholder="Confirm your password" 
+                               aria-describedby="confirmPasswordError">
+                        <div id="confirmPasswordError" class="error-message">Passwords do not match</div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" id="registerBtn">
+                        <span class="loading-spinner"></span>
+                        <span class="btn-text">Register</span>
+                    </button>
                 </form>
-                <p class="login-link">Already have an account? <a href="#" id="loginToggle">Login</a></p>
+                
+                <div class="success-checkmark">
+                    <div class="check-icon"></div>
+                </div>
+                <div class="success-message">Registration successful! Please login.</div>
+                
+                <div class="toggle-container">
+                    <p>Already have an account? <a href="#" id="loginToggle" class="toggle-link">Login</a></p>
+                </div>
             </div>
         </div>
     </div>
+    
+    <!-- Screen reader announcements -->
+    <div id="a11y-announce" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+    
+    <!-- Scripts -->
     <script src="assets/js/auth.js"></script>
+    <script src="assets/js/login-animation.js"></script>
+    
+    <!-- Script to change login border animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Option 1: Add new style to override animation
+            document.head.insertAdjacentHTML('beforeend', `
+                <style>
+                    .login-wrapper:before {
+                        background: #0a1128 !important;
+                        animation: none !important;
+                        box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7) !important;
+                    }
+                    
+                    /* Add a new wrapper for the border animation */
+                    .login-wrapper .border-glow {
+                        position: absolute;
+                        top: -3px;
+                        left: -3px;
+                        right: -3px;
+                        bottom: -3px;
+                        z-index: -1;
+                        border-radius: 17px;
+                        background: #0a1128;
+                        animation: pulseGlow 3s infinite alternate;
+                    }
+                    
+                    @keyframes pulseGlow {
+                        0% { box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7); }
+                        50% { box-shadow: 0 0 25px 5px rgba(10, 17, 40, 0.9); }
+                        100% { box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7); }
+                    }
+                </style>
+            `);
+            
+            // Option 2: Add a new element for the glow effect
+            const wrapper = document.querySelector('.login-wrapper');
+            const borderGlow = document.createElement('div');
+            borderGlow.className = 'border-glow';
+            wrapper.prepend(borderGlow);
+        });
+    </script>
 </body>
-</html> 
+</html>

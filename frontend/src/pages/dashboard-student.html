@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Campus Connect</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Campus Connect</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="dashboard-student.html">Dashboard</a></li>
+                    <li><a href="jobs.html">Browse Jobs</a></li>
+                    <li><a href="applications.html">My Applications</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h2 id="welcomeMessage">Welcome!</h2>
+                <div class="user-info">
+                    <span id="userRole"></span>
+                </div>
+            </header>
+
+            <!-- Dashboard Stats -->
+            <section class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Applied Jobs</h3>
+                    <p id="appliedJobs">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Shortlisted</h3>
+                    <p id="shortlisted">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Interviews</h3>
+                    <p id="interviews">0</p>
+                </div>
+            </section>
+
+            <!-- Recent Jobs -->
+            <section class="dashboard-section">
+                <h3>Recent Job Opportunities</h3>
+                <div id="recentJobs" class="jobs-grid">
+                    <!-- Jobs will be loaded here -->
+                </div>
+            </section>
+
+            <!-- My Applications -->
+            <section class="dashboard-section">
+                <h3>My Applications</h3>
+                <div id="applications" class="applications-grid">
+                    <!-- Applications will be loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html> 

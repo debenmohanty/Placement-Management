@@ -20,6 +20,7 @@
                     <li><a href="post-job.html">Post Job</a></li>
                     <li><a href="applications.html">Applications</a></li>
                     <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#" id="deleteAccountBtn" class="danger-link">Delete Account</a></li>
                     <li><a href="#" id="logoutBtn">Logout</a></li>
                 </ul>
             </nav>
@@ -66,6 +67,25 @@
                 </div>
             </section>
         </main>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div id="deleteAccountModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Delete Account</h2>
+            <p>Are you sure you want to delete your account? This action cannot be undone and will permanently delete all your data.</p>
+            <form id="deleteAccountForm">
+                <div class="form-group">
+                    <label for="password">Enter your password to confirm:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn-danger">Delete My Account</button>
+                    <button type="button" class="btn-secondary" id="cancelDelete">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="assets/js/auth.js"></script>

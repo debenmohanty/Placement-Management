@@ -5,59 +5,351 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Placement Cell Management System</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
+        /* Animation keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 30px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
         
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes wave {
+            0% { transform: translateY(0) scaleY(1); }
+            50% { transform: translateY(-10px) scaleY(0.8); }
+            100% { transform: translateY(0) scaleY(1); }
+        }
+        
+        @keyframes moveHorizontal {
+            0% { background-position-x: 0%; }
+            100% { background-position-x: 100%; }
+        }
+        
+        /* Header animation */
+        .header-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(90deg, #3498db, #2c3e50, #9b59b6, #3498db);
+            background-size: 400% 100%;
+            z-index: -1;
+            animation: moveHorizontal 15s linear infinite;
+            overflow: hidden;
+        }
+        
+        .header-animation::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' class='shape-fill'%3E%3C/path%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' class='shape-fill'%3E%3C/path%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' class='shape-fill'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: 100% 100%;
+            animation: wave 5s ease-in-out infinite;
+        }
+        
+        /* Enhanced hero section */
         .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://via.placeholder.com/1920x1080?text=Campus+Recruitment') no-repeat center center/cover;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 80px 0;
+            padding: 100px 0;
             text-align: center;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(32, 32, 96, 0.9), rgba(79, 42, 140, 0.85), rgba(16, 95, 143, 0.8));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -2;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/images/campus-placement.jpg') no-repeat center center/cover;
+            z-index: -3;
+            filter: brightness(0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 20px;
         }
         
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             max-width: 800px;
-            margin: 0 auto 30px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1s ease-out 0.3s;
+            animation-fill-mode: both;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
         }
         
         .cta-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
+            animation: fadeInUp 1s ease-out 0.6s;
+            animation-fill-mode: both;
         }
         
         .btn-large {
-            padding: 12px 30px;
+            padding: 15px 35px;
             font-size: 1.1rem;
             text-decoration: none;
-            border-radius: var(--border-radius);
+            border-radius: 50px;
             transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
         
         .btn-primary-outline {
-            border: 2px solid var(--primary-color);
+            border: 2px solid white;
             color: white;
             background-color: transparent;
         }
         
         .btn-primary-outline:hover {
-            background-color: var(--primary-color);
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
         
+        /* Floating elements */
+        .floating-icon {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .icon-1 {
+            top: 15%;
+            left: 15%;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            animation-delay: 0s;
+        }
+        
+        .icon-2 {
+            top: 25%;
+            right: 10%;
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.6);
+            animation-delay: 0.5s;
+        }
+        
+        .icon-3 {
+            bottom: 20%;
+            left: 10%;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.5);
+            animation-delay: 1s;
+        }
+        
+        .icon-4 {
+            bottom: 30%;
+            right: 15%;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            animation-delay: 1.5s;
+        }
+        
+        /* Animated scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 1s ease-out 1s;
+            animation-fill-mode: both;
+        }
+        
+        .scroll-indicator span {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .scroll-indicator .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        .scroll-indicator .mouse::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+            animation: scrollWheel 2s infinite;
+        }
+        
+        @keyframes scrollWheel {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+        }
+        
+        /* Features section enhancement */
         .features {
-            padding: 80px 0;
+            padding: 100px 0;
             background-color: #f8f9fa;
+            position: relative;
+            overflow: hidden;
         }
         
-        .features h2 {
+        .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
             color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card:hover .feature-icon {
+            color: white;
+            background-color: var(--primary-color);
+            transform: rotateY(360deg);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: rgba(52, 152, 219, 0.1);
+            transition: all 0.5s;
+        }
+        
+        .feature-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
         }
         
         .features-grid {
@@ -76,30 +368,6 @@
             .features-grid {
                 grid-template-columns: 1fr;
             }
-        }
-        
-        .feature-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            color: var(--secondary-color);
-            margin-bottom: 15px;
         }
         
         .stats {
@@ -293,79 +561,187 @@
         .login-btn:hover {
             background-color: #2980b9;
         }
+        
+        /* Particle background */
+        .particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Animated gradient background */
+        .animated-gradient {
+            background: linear-gradient(-45deg, #2c3e50, #3498db, #2980b9, #34495e);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        /* Dark mode specific styles for index page */
+        .dark-mode .hero.animated-gradient {
+            background: linear-gradient(-45deg, #1a374d, #2980b9, #1e5f8c, #1c4966);
+            background-size: 400% 400%;
+        }
+        
+        .dark-mode .hero h1,
+        .dark-mode .hero p {
+            color: #f5f5f5;
+        }
+        
+        .dark-mode .btn-white {
+            background-color: #f5f5f5;
+            color: var(--primary-color);
+        }
+        
+        .dark-mode .cta-section {
+            background: linear-gradient(rgba(28, 98, 159, 0.9), rgba(28, 98, 159, 0.9)),
+                url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+        }
+        
+        .dark-mode footer p {
+            color: #f5f5f5;
+        }
+        
+        /* Particles color adjustment for dark mode */
+        .dark-mode .particles-js canvas {
+            filter: brightness(0.8);
+        }
     </style>
 </head>
 <body>
+    <div class="header-animation"></div>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <header class="landing-header">
         <nav class="container">
-            <div class="logo"></div>
+            <div class="logo" aria-label="Campus Connect logo">Campus Connect</div>
             <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#statistics">Statistics</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="login.html" class="login-btn">Login / Register</a></li>
+                <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#" class="tooltip">Services
+                    <span class="tooltip-text">Explore our services</span>
+                </a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
+            <!-- Dark mode toggle button -->
+            <button class="dark-mode-toggle tooltip" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+                <span class="tooltip-text">Switch to dark mode</span>
+            </button>
         </nav>
     </header>
     
     <section class="hero">
-        <div class="container">
-            <h1>Welcome to Campus Connect</h1>
-            <p>A comprehensive platform connecting students, faculty, and companies to streamline the campus placement process. Empowering careers through technology.</p>
+        <div class="hero-bg"></div>
+        <div class="floating-icon icon-1"><i class="fas fa-graduation-cap"></i></div>
+        <div class="floating-icon icon-2"><i class="fas fa-briefcase"></i></div>
+        <div class="floating-icon icon-3"><i class="fas fa-laptop-code"></i></div>
+        <div class="floating-icon icon-4"><i class="fas fa-chart-line"></i></div>
+        
+        <div class="hero-content">
+            <h1>Campus Connect Placement Portal</h1>
+            <p>Bridging the gap between talented students and industry-leading companies. Our platform offers a seamless experience for campus placements, career guidance, and professional development.</p>
             <div class="cta-buttons">
                 <a href="login.html" class="btn-large btn-primary">Get Started</a>
-                <a href="#features" class="btn-large btn-primary-outline">Learn More</a>
+                <a href="about.html" class="btn-large btn-primary-outline">Learn More</a>
             </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <span>SCROLL DOWN</span>
+            <div class="mouse"></div>
         </div>
     </section>
     
-    <section class="features" id="features">
+    <section class="features">
         <div class="container">
-            <h2>Key Features</h2>
+            <div class="section-title">
+                <h2>Key Features</h2>
+                <p>Our platform offers a comprehensive suite of tools and services to streamline the campus placement process.</p>
+            </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">📚</div>
-                    <h3>Career Counseling</h3>
-                    <p>Access professional career guidance, personality assessments, and industry insights to make informed career decisions.</p>
+                    <div>
+                        <div class="feature-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Student Profiles</h3>
+                        <p>Create comprehensive profiles showcasing academic achievements, skills, and experiences to stand out to potential employers.</p>
+                    </div>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">👨‍🏫</div>
-                    <h3>Mentorship</h3>
-                    <p>Connect with experienced faculty mentors and industry professionals for personalized guidance and support.</p>
+                    <div>
+                        <div class="feature-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Company Dashboard</h3>
+                        <p>Companies can manage recruitment drives, post job openings, and track applications all in one centralized location.</p>
+                    </div>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">💼</div>
-                    <h3>Placement Offers</h3>
-                    <p>Explore and apply for job opportunities from top companies directly through our platform.</p>
+                    <div>
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Interview Scheduling</h3>
+                        <p>Automated scheduling system for interviews and assessments, with reminders and calendar integration.</p>
+                    </div>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Internship Programs</h3>
-                    <p>Gain practical experience through a wide range of internship opportunities across various industries.</p>
+                    <div>
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Comprehensive analytics and reporting tools to track placement statistics and performance metrics.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="stats" id="statistics">
+    <section class="stats section-pattern section-wave-top section-wave-bottom">
         <div class="container">
-            <h2>Our Achievements</h2>
+            <h2>Our Success in Numbers</h2>
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">50+</div>
+                    <div class="stat-number" data-count="50">0</div>
                     <div class="stat-label">Company Partners</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">500+</div>
+                    <div class="stat-number" data-count="500">0</div>
                     <div class="stat-label">Students Placed</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">92%</div>
+                    <div class="stat-number" data-count="92">0</div>
                     <div class="stat-label">Placement Rate</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">15L</div>
-                    <div class="stat-label">Average Package</div>
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-label">Average Package (LPA)</div>
                 </div>
             </div>
         </div>
@@ -421,7 +797,7 @@
         </div>
     </section>
     
-    <section class="cta-section">
+    <section class="cta-section section-pattern">
         <div class="container">
             <h2>Ready to Advance Your Career?</h2>
             <p>Join our Campus Connect today and take the first step towards a successful career. Whether you're a student, faculty member, or a company, we're here to connect you with opportunities.</p>
@@ -431,7 +807,7 @@
     
     <footer>
         <div class="container">
-            <p>&copy; 2023 Campus Connect</p>
+            <p>&copy; 2025 Campus Connect</p>
             <p>Contact: campusconnect@gmail.com</p>
         </div>
     </footer>
@@ -460,13 +836,226 @@
             const header = document.querySelector('.landing-header');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
-                    header.style.backgroundColor = 'rgba(44, 62, 80, 0.9)';
+                    header.style.backgroundColor = document.body.classList.contains('dark-mode') ? 
+                        'rgba(26, 55, 77, 0.9)' : 'rgba(44, 62, 80, 0.9)';
                     header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
                 } else {
                     header.style.backgroundColor = 'transparent';
                     header.style.boxShadow = 'none';
                 }
             });
+            
+            // Dark mode toggle functionality
+            const darkModeToggle = document.querySelector('.dark-mode-toggle');
+            
+            // Check for saved preference
+            const savedMode = localStorage.getItem('darkMode');
+            const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Apply dark mode if saved or if user prefers dark mode
+            if (savedMode === 'dark' || (savedMode === null && prefersDarkMode)) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i><span class="tooltip-text">Switch to light mode</span>';
+                
+                // Update header background if scrolled
+                if (window.scrollY > 50) {
+                    header.style.backgroundColor = 'rgba(26, 55, 77, 0.9)';
+                }
+            }
+            
+            // Add click event for dark mode toggle
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'dark');
+                    this.innerHTML = '<i class="fas fa-sun"></i><span class="tooltip-text">Switch to light mode</span>';
+                    
+                    if (window.scrollY > 50) {
+                        header.style.backgroundColor = 'rgba(26, 55, 77, 0.9)';
+                    }
+                } else {
+                    localStorage.setItem('darkMode', 'light');
+                    this.innerHTML = '<i class="fas fa-moon"></i><span class="tooltip-text">Switch to dark mode</span>';
+                    
+                    if (window.scrollY > 50) {
+                        header.style.backgroundColor = 'rgba(44, 62, 80, 0.9)';
+                    }
+                }
+            });
+        });
+    </script>
+    
+    <!-- Script for counter animation -->
+    <script>
+        // Counter animation for statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200; // The lower the faster
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(() => animateCounters(), 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+        
+        // Check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+        
+        // Start animation when stats section comes into view
+        document.addEventListener('scroll', function() {
+            const statsSection = document.querySelector('.stats');
+            if (isInViewport(statsSection) && !statsSection.classList.contains('animated')) {
+                statsSection.classList.add('animated');
+                animateCounters();
+            }
+        });
+        
+        // Check on page load as well
+        window.addEventListener('load', function() {
+            const statsSection = document.querySelector('.stats');
+            if (isInViewport(statsSection) && !statsSection.classList.contains('animated')) {
+                statsSection.classList.add('animated');
+                animateCounters();
+            }
+        });
+    </script>
+    
+    <!-- Particles.js for animated backgrounds -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS("particles-js", {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#ffffff"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": true,
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#ffffff",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 2,
+                            "direction": "none",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        });
+    </script>
+    
+    <script>
+        // Parallax effect for hero background
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            const heroBackground = document.querySelector('.hero-bg');
+            heroBackground.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
+        });
+        
+        // Animate elements when they come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateOnScroll = function() {
+                const featureCards = document.querySelectorAll('.feature-card');
+                
+                featureCards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (cardPosition < screenPosition) {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 150);
+                    }
+                });
+            };
+            
+            // Set initial state for animation
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease-out';
+            });
+            
+            // Run on load
+            animateOnScroll();
+            
+            // Run on scroll
+            window.addEventListener('scroll', animateOnScroll);
         });
     </script>
 </body>
