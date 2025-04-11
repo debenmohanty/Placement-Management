@@ -73,6 +73,11 @@
 }
 
 /* Who We Are Section */
+.who-we-are-section {
+    position: relative;
+    overflow: hidden;
+}
+
 .about-content {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -85,6 +90,7 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    height: 400px;
 }
 
 .about-image:before {
@@ -98,10 +104,101 @@
     z-index: 1;
 }
 
+.animated-bg-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.1) 10%, transparent 20%),
+        radial-gradient(circle at 70% 60%, rgba(67, 97, 238, 0.1) 10%, transparent 20%),
+        radial-gradient(circle at 40% 80%, rgba(67, 97, 238, 0.1) 15%, transparent 25%),
+        radial-gradient(circle at 80% 10%, rgba(67, 97, 238, 0.1) 5%, transparent 15%);
+    background-size: 100% 100%;
+    animation: patternMove 10s infinite linear;
+    z-index: 0;
+}
+
+@keyframes patternMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 10% 10%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.floating-element {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.element-1 {
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+    top: 20%;
+    left: 20%;
+    animation-name: float1;
+}
+
+.element-2 {
+    background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+    top: 50%;
+    left: 25%;
+    animation-name: float2;
+}
+
+.element-3 {
+    background: linear-gradient(135deg, #7209b7 0%, #3a0ca3 100%);
+    bottom: 20%;
+    left: 15%;
+    animation-name: float3;
+}
+
+@keyframes float1 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(15px) rotate(-5deg); }
+}
+
+@keyframes float3 {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    50% { transform: translateX(15px) rotate(5deg); }
+}
+
 .about-image img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.5s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .about-image:hover img {
@@ -112,6 +209,20 @@
     color: var(--primary-color);
     margin-bottom: 15px;
     font-size: 1.5rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+.about-text h3:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 2px;
 }
 
 .about-text p {

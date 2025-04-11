@@ -221,7 +221,8 @@ function setupFormValidation() {
             if (isValid) {
                 // Show loading state
                 const submitBtn = this.querySelector('button[type="submit"]');
-                submitBtn.classList.add('loading');
+                
+                // Only change text, no animation or loading class
                 submitBtn.querySelector('.btn-text').textContent = 'Logging in...';
                 
                 // Call the login function from auth.js
@@ -229,17 +230,8 @@ function setupFormValidation() {
                 const password = passwordInput.value;
                 const role = roleSelect.value;
                 
-                // If auth.js has a login function
-                if (typeof login === 'function') {
-                    login(email, password, role);
-                } else {
-                    // Demo purposes only - simulate login
-                    setTimeout(() => {
-                        submitBtn.classList.remove('loading');
-                        submitBtn.querySelector('.btn-text').textContent = 'Login';
-                        alert('Login function not available in demo. Would log in with: ' + email);
-                    }, 2000);
-                }
+                // This function is defined in auth.js
+                login(email, password, role);
             }
         });
     }
@@ -507,7 +499,15 @@ function setupFormValidation() {
             if (isValid) {
                 // Show loading state
                 const submitBtn = this.querySelector('button[type="submit"]');
-                submitBtn.classList.add('loading');
+                const loadingSpinner = submitBtn.querySelector('.loading-spinner');
+                
+                // Remove all spinner-related code
+                if (loadingSpinner) {
+                    // Remove the spinner element completely
+                    loadingSpinner.remove();
+                }
+                
+                // Just change text, don't add loading class
                 submitBtn.querySelector('.btn-text').textContent = 'Registering...';
                 
                 // Prepare user data
@@ -572,7 +572,6 @@ function setupFormValidation() {
                         // Reset and redirect to login after 3 seconds
                         setTimeout(() => {
                             registerForm.classList.remove('form-submitted');
-                            submitBtn.classList.remove('loading');
                             submitBtn.querySelector('.btn-text').textContent = 'Register';
                             document.getElementById('loginToggle').click();
                         }, 3000);

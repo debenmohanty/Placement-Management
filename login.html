@@ -429,23 +429,17 @@
         
         /* Loading animation for form submission */
         .loading-spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s infinite linear;
-            margin-right: 10px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            display: none !important;
         }
         
         .btn-primary.loading .loading-spinner {
-            display: inline-block;
+            display: none !important;
+        }
+        
+        /* Disable spinner animations */
+        @keyframes spin {
+            0% { transform: none; }
+            100% { transform: none; }
         }
         
         /* Accessibility focus styles */
@@ -636,7 +630,6 @@
                     </div>
                     
                     <button type="submit" class="btn-primary" id="loginBtn">
-                        <span class="loading-spinner"></span>
                         <span class="btn-text">Login</span>
                     </button>
                 </form>
@@ -951,12 +944,17 @@
                         </div>
                     </div>
                     
+                    <!-- Create password section -->
                     <div class="form-group">
-                        <label for="regPassword">Password</label>
+                        <label for="regPassword">Create Password</label>
                         <input type="password" id="regPassword" name="regPassword" required 
                                placeholder="Create a password" 
-                               aria-describedby="regPasswordError">
+                               aria-describedby="regPasswordError passwordStrengthText">
                         <div id="regPasswordError" class="error-message">Password must be at least 6 characters</div>
+                        <div id="passwordStrength" class="password-strength-meter">
+                            <div class="strength-bar"></div>
+                        </div>
+                        <small id="passwordStrengthText" class="form-text">Password strength: weak</small>
                     </div>
                     
                     <div class="form-group">
@@ -968,7 +966,6 @@
                     </div>
                     
                     <button type="submit" class="btn-primary" id="registerBtn">
-                        <span class="loading-spinner"></span>
                         <span class="btn-text">Register</span>
                     </button>
                 </form>
@@ -991,46 +988,6 @@
     <!-- Scripts -->
     <script src="assets/js/auth.js"></script>
     <script src="assets/js/login-animation.js"></script>
-    
-    <!-- Script to change login border animation -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Option 1: Add new style to override animation
-            document.head.insertAdjacentHTML('beforeend', `
-                <style>
-                    .login-wrapper:before {
-                        background: #0a1128 !important;
-                        animation: none !important;
-                        box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7) !important;
-                    }
-                    
-                    /* Add a new wrapper for the border animation */
-                    .login-wrapper .border-glow {
-                        position: absolute;
-                        top: -3px;
-                        left: -3px;
-                        right: -3px;
-                        bottom: -3px;
-                        z-index: -1;
-                        border-radius: 17px;
-                        background: #0a1128;
-                        animation: pulseGlow 3s infinite alternate;
-                    }
-                    
-                    @keyframes pulseGlow {
-                        0% { box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7); }
-                        50% { box-shadow: 0 0 25px 5px rgba(10, 17, 40, 0.9); }
-                        100% { box-shadow: 0 0 15px 2px rgba(26, 42, 108, 0.7); }
-                    }
-                </style>
-            `);
-            
-            // Option 2: Add a new element for the glow effect
-            const wrapper = document.querySelector('.login-wrapper');
-            const borderGlow = document.createElement('div');
-            borderGlow.className = 'border-glow';
-            wrapper.prepend(borderGlow);
-        });
-    </script>
+    <script src="assets/js/disable-spinner.js"></script>
 </body>
 </html>

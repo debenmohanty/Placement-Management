@@ -6,7 +6,9 @@
     <title>About Us - Campus Connect</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/about.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         /* Particle background */
         .particles-js {
@@ -34,7 +36,10 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html" class="active" aria-current="page">About Us</a></li>
-                <li><a href="#statistics" class="tooltip">Statistics
+                <li><a href="services.html" class="tooltip">Services
+                    <span class="tooltip-text">Explore our services</span>
+                </a></li>
+                <li><a href="index.html#statistics" class="tooltip">Statistics
                     <span class="tooltip-text">Our achievements</span>
                 </a></li>
                 <li><a href="#testimonials" class="tooltip">Testimonials
@@ -58,14 +63,20 @@
     <div class="section-divider diagonal-bottom"></div>
     
     <!-- Who We Are Section -->
-    <section class="about-section">
+    <section class="about-section who-we-are-section">
         <div class="container">
-            <h2>Who We Are ?</h2>
+            <h2 class="animate__animated animate__fadeInDown">Who We Are ?</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="assets/images/team.jpg" alt="Our Team" onerror="this.src='https://via.placeholder.com/600x400?text=Our+Team'">
+                    <div class="floating-elements">
+                        <div class="floating-element element-1"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="floating-element element-2"><i class="fas fa-lightbulb"></i></div>
+                        <div class="floating-element element-3"><i class="fas fa-chart-line"></i></div>
+                    </div>
+                    <div class="animated-bg-pattern"></div>
+                    <img src="assets/images/team.jpg" alt="Our Team" class="animate__animated animate__fadeInLeft" onerror="this.src='https://via.placeholder.com/600x400?text=Our+Team'">
                 </div>
-                <div class="about-text">
+                <div class="about-text animate__animated animate__fadeInRight">
                     <h3>Our Story</h3>
                     <p>Campus Connect was founded in 2025 with a vision to transform the way educational institutions and companies collaborate for campus placements. What began as a small initiative to streamline the placement process at a few colleges has now evolved into a comprehensive digital platform connecting students, faculty, and companies across the country.</p>
                     
@@ -331,40 +342,75 @@
         </div>
     </section>
     
-    <footer>
+    <footer class="enhanced-footer">
+        <div class="footer-wave"></div>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Campus Connect</h3>
-                   <p>Building connections between education and career opportunities.</p>
+                <div class="footer-section about-section">
+                    <div class="footer-logo">
+                        <h3>Campus Connect</h3>
+                        <div class="logo-underline"></div>
+                    </div>
+                    <p>Building meaningful connections between talented students and industry-leading companies since 2025.</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Education Street, Tech Park, Bangalore, India</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 1234567890</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="footer-section">
+                <div class="footer-section links-section">
                     <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="#statistics">Statistics</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                    </ul>
+                    <div class="footer-links-container">
+                        <ul class="footer-links">
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                            <li><a href="login.html"><i class="fas fa-chevron-right"></i> Login/Register</a></li>
+                        </ul>
+                        <ul class="footer-links">
+                            <li><a href="index.html#statistics"><i class="fas fa-chevron-right"></i> Statistics</a></li>
+                            <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                            <li><a href="career-counseling.html"><i class="fas fa-chevron-right"></i> Career Counseling</a></li>
+                            <li><a href="mentorship.html"><i class="fas fa-chevron-right"></i> Mentorship</a></li>
+                        </ul>
+                    </div>
                 </div>
                 
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <p>Email: <a href="mailto:info@campusconnect.com" class="tooltip">info@campusconnect.com
-                        <span class="tooltip-text">Send us an email</span>
-                    </a></p>
-                    <div class="social-icons" aria-label="Follow us on social media">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <div class="footer-section contact-section">
+                    <h3>Connect With Us</h3>
+                    <p>Stay updated with our latest news and events. Follow us on social media or subscribe to our newsletter.</p>
+                    <form class="footer-subscribe">
+                        <input type="email" placeholder="Your Email Address" required>
+                        <button type="submit" class="subscribe-btn"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 Campus Connect. All rights reserved.</p>
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2025 Campus Connect. All rights reserved.</p>
+                    </div>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <span class="footer-divider">|</span>
+                        <a href="#">Terms of Service</a>
+                        <span class="footer-divider">|</span>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -426,80 +472,74 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS("about-particles-js", {
-                    "particles": {
-                        "number": {
-                            "value": 60,
-                            "density": {
-                                "enable": true,
-                                "value_area": 800
-                            }
-                        },
-                        "color": {
-                            "value": "#ffffff"
-                        },
-                        "shape": {
-                            "type": "circle",
-                            "stroke": {
-                                "width": 0,
-                                "color": "#000000"
-                            },
-                        },
-                        "opacity": {
-                            "value": 0.5,
-                            "random": true,
-                        },
-                        "size": {
-                            "value": 3,
-                            "random": true,
-                        },
-                        "line_linked": {
-                            "enable": true,
-                            "distance": 150,
-                            "color": "#ffffff",
-                            "opacity": 0.4,
-                            "width": 1
-                        },
-                        "move": {
-                            "enable": true,
-                            "speed": 1.5,
-                            "direction": "none",
-                            "random": true,
-                            "straight": false,
-                            "out_mode": "out",
-                            "bounce": false,
-                        }
-                    },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {
-                            "onhover": {
-                                "enable": true,
-                                "mode": "bubble"
-                            },
-                            "onclick": {
-                                "enable": true,
-                                "mode": "push"
-                            },
-                            "resize": true
-                        },
-                        "modes": {
-                            "bubble": {
-                                "distance": 150,
-                                "size": 6,
-                                "duration": 2,
-                                "opacity": 0.8,
-                                "speed": 3
-                            },
-                            "push": {
-                                "particles_nb": 4
-                            }
-                        }
-                    },
-                    "retina_detect": true
-                });
+            // Initialize particles
+            particlesJS('about-particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: '#4361ee' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: '#4361ee', opacity: 0.4, width: 1 },
+                    move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out' }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'grab' },
+                        onclick: { enable: true, mode: 'push' },
+                        resize: true
+                    }
+                }
+            });
+            
+            // Animate stats counter
+            function animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
             }
+            
+            // Initialize Intersection Observer for "Who We Are" section
+            const whoWeAreSection = document.querySelector('.who-we-are-section');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add animation classes when section comes into view
+                        entry.target.querySelector('h2').classList.add('animate__animated', 'animate__fadeInDown');
+                        entry.target.querySelector('.about-image img').classList.add('animate__animated', 'animate__fadeInLeft');
+                        entry.target.querySelector('.about-text').classList.add('animate__animated', 'animate__fadeInRight');
+                        
+                        // Unobserve after animation is triggered
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe the Who We Are section
+            if (whoWeAreSection) {
+                observer.observe(whoWeAreSection);
+            }
+            
+            // Stat counter animation
+            document.querySelectorAll('.stat-number').forEach(stat => {
+                const finalValue = parseInt(stat.getAttribute('data-count'));
+                animateValue(stat, 0, finalValue, 2000);
+            });
         });
     </script>
 </body>

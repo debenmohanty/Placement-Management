@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Registered Users</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .message {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .info {
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+            color: #0d47a1;
+        }
+        .success {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            color: #1b5e20;
+            display: none;
+        }
+        .warning {
+            background-color: #fff3e0;
+            border: 1px solid #ffe0b2;
+            color: #e65100;
+        }
+        .btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #d32f2f;
+        }
+        .btn:disabled {
+            background-color: #e0e0e0;
+            color: #9e9e9e;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background-color: #2196f3;
+            margin-left: 10px;
+        }
+        .btn-secondary:hover {
+            background-color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clear Registered Users</h1>
+        
+        <div class="message info" id="statusMessage">
+            Checking for registered users...
+        </div>
+        
+        <div class="message success" id="successMessage">
+            All registered users have been cleared from localStorage.
+        </div>
+        
+        <button class="btn" id="clearBtn" disabled>Clear All Users</button>
+        <a href="index.html"><button class="btn btn-secondary">Back to Home</button></a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusMessage = document.getElementById('statusMessage');
+            const successMessage = document.getElementById('successMessage');
+            const clearBtn = document.getElementById('clearBtn');
+            
+            // Check for registered users
+            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
+            const userCount = Object.keys(registeredUsers).length;
+            
+            if (userCount === 0) {
+                statusMessage.textContent = 'No registered users found in localStorage.';
+                statusMessage.className = 'message warning';
+                clearBtn.disabled = true;
+            } else {
+                statusMessage.textContent = `Found ${userCount} registered user(s) in localStorage.`;
+                statusMessage.className = 'message info';
+                clearBtn.disabled = false;
+            }
+            
+            // Clear users button handler
+            clearBtn.addEventListener('click', function() {
+                // Display confirmation dialog
+                const confirmClear = confirm('Are you sure you want to clear all registered users? This action cannot be undone.');
+                
+                if (confirmClear) {
+                    // Remove users from localStorage
+                    localStorage.removeItem('registeredUsers');
+                    
+                    // Update UI
+                    statusMessage.textContent = 'No registered users found in localStorage.';
+                    statusMessage.className = 'message warning';
+                    successMessage.style.display = 'block';
+                    clearBtn.disabled = true;
+                    
+                    console.log('All registered users have been cleared from localStorage.');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

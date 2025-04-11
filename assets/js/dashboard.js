@@ -1,15 +1,26 @@
 // API Configuration
-const API_URL = 'http://localhost:5001';
+// const API_URL = 'http://localhost:5001';
+const MOCK_MODE = true; // Enable mock data mode
 
 // Dashboard Functions
 async function fetchDashboardData() {
     try {
         const token = localStorage.getItem('token');
-        if (!token) {
+        const user = getCurrentUser();
+        
+        if (!token || !user) {
             window.location.href = 'login.html';
             return;
         }
 
+        if (MOCK_MODE) {
+            // Use mock data instead of API calls
+            const mockData = generateMockDashboardData(user.role);
+            updateDashboardUI(mockData);
+            return;
+        }
+
+        // Real API call - only used if MOCK_MODE is false
         const response = await fetch(`${API_URL}/dashboard`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -24,8 +35,103 @@ async function fetchDashboardData() {
         }
     } catch (error) {
         console.error('Dashboard error:', error);
-        alert('Failed to load dashboard data');
+        
+        // Show error on dashboard
+        const errorEl = document.createElement('div');
+        errorEl.className = 'error-message';
+        errorEl.textContent = 'Failed to load dashboard data. Please try again later.';
+        
+        // Insert after dashboard hero section if it exists
+        const heroSection = document.querySelector('.dashboard-hero');
+        if (heroSection && heroSection.parentNode) {
+            heroSection.parentNode.insertBefore(errorEl, heroSection.nextSibling);
+        } else {
+            // Fallback - add to top of main content
+            const mainContent = document.querySelector('.main-content, main');
+            if (mainContent) {
+                mainContent.prepend(errorEl);
+            }
+        }
     }
+}
+
+// Generate mock data for demo purposes
+function generateMockDashboardData(role) {
+    // Common data for all roles
+    const baseData = {
+        stats: {
+            totalJobs: 25,
+            totalApplications: 8,
+            activeCompanies: 12,
+            totalEvents: 5
+        }
+    };
+    
+    // Role-specific data
+    if (role === 'student') {
+        return {
+            ...baseData,
+            stats: {
+                ...baseData.stats,
+                totalApplications: 8,
+                totalInterviews: 3,
+                totalOffers: 1
+            },
+            recentJobs: [
+                { id: 1, title: 'Frontend Developer Intern', company: 'TechCorp', location: 'Bangalore', deadline: '2023-12-15' },
+                { id: 2, title: 'UI/UX Designer', company: 'DesignHub', location: 'Remote', deadline: '2023-12-20' },
+                { id: 3, title: 'Backend Engineer', company: 'ServerSolutions', location: 'Hyderabad', deadline: '2023-12-18' }
+            ],
+            recentApplications: [
+                { id: 1, jobTitle: 'Frontend Developer Intern', status: 'Interview Scheduled', appliedAt: '2023-11-28T10:30:00Z' },
+                { id: 2, jobTitle: 'Data Analyst', status: 'Under Review', appliedAt: '2023-11-25T08:15:00Z' },
+                { id: 3, jobTitle: 'Mobile App Developer', status: 'Applied', appliedAt: '2023-11-20T14:45:00Z' }
+            ]
+        };
+    } else if (role === 'company') {
+        return {
+            ...baseData,
+            stats: {
+                ...baseData.stats,
+                activeListings: 4,
+                totalApplicants: 35,
+                interviewsScheduled: 12
+            },
+            activeJobs: [
+                { id: 1, title: 'Senior Frontend Developer', applicants: 15, posted: '2023-11-10T09:00:00Z' },
+                { id: 2, title: 'Java Backend Developer', applicants: 12, posted: '2023-11-15T11:30:00Z' },
+                { id: 3, title: 'DevOps Engineer', applicants: 8, posted: '2023-11-20T10:00:00Z' }
+            ],
+            recentApplicants: [
+                { id: 1, name: 'John Doe', position: 'Senior Frontend Developer', appliedAt: '2023-11-28T14:00:00Z' },
+                { id: 2, name: 'Jane Smith', position: 'Java Backend Developer', appliedAt: '2023-11-27T09:30:00Z' },
+                { id: 3, name: 'Bob Johnson', position: 'DevOps Engineer', appliedAt: '2023-11-26T16:45:00Z' }
+            ]
+        };
+    } else if (role === 'faculty') {
+        return {
+            ...baseData,
+            stats: {
+                ...baseData.stats,
+                totalStudents: 120,
+                placedStudents: 45,
+                placementRate: '37.5%'
+            },
+            recentActivities: [
+                { id: 1, title: 'Resume Workshop', description: 'Help students prepare professional resumes', date: '2023-12-10T15:00:00Z' },
+                { id: 2, title: 'Mock Interviews', description: 'Practice technical interviews with industry experts', date: '2023-12-15T10:00:00Z' },
+                { id: 3, title: 'Placement Orientation', description: 'Overview of the placement process for new students', date: '2023-12-05T14:30:00Z' }
+            ],
+            mentorshipRequests: [
+                { id: 1, studentName: 'Alice Williams', requestType: 'Career Guidance', status: 'Pending' },
+                { id: 2, studentName: 'Charlie Brown', requestType: 'Technical Mentorship', status: 'Pending' },
+                { id: 3, studentName: 'David Miller', requestType: 'Interview Preparation', status: 'Pending' }
+            ]
+        };
+    }
+    
+    // Default data if role is not recognized
+    return baseData;
 }
 
 function updateDashboardUI(data) {
